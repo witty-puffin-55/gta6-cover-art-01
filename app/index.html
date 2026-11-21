@@ -10,33 +10,33 @@
 <main class="app">
   <section class="controls" aria-label="Cover controls">
     <h1>VICE COVER MAKER</h1>
-    <p class="tagline">Your photo, three panels, one sunset poster. Pick a photo, frame each panel, write the caption, export the PNG.</p>
+    <p class="tagline">Turn your photo into a Vice City poster: three panels, a sunset grade, bold lettering — then save the PNG and share it.</p>
 
     <fieldset>
-      <legend>1 · Photo</legend>
-      <label class="file-label">Add a photo to the selected panel
+      <legend>1 · Your photo</legend>
+      <label class="file-label">Put a photo in the selected panel
         <input id="photo" type="file" accept="image/*">
       </label>
       <div class="row">
-        <button id="fill-all" type="button">Use in all panels</button>
-        <button id="clear-panel" type="button">Clear panel</button>
+        <button id="fill-all" type="button">Same photo everywhere</button>
+        <button id="clear-panel" type="button">Empty this panel</button>
       </div>
-      <p class="hint">Or try a sample:</p>
+      <p class="hint">No photo handy? Try a sample:</p>
       <div class="row">
-        <button id="sample-pier" type="button">Pier photo</button>
-        <button id="sample-boulevard" type="button">Boulevard photo</button>
+        <button id="sample-pier" type="button">Pier</button>
+        <button id="sample-boulevard" type="button">Boulevard</button>
       </div>
-      <p class="hint">Photos stay on your machine — nothing is uploaded.</p>
+      <p class="hint">Everything runs in this page — your photos never leave your device.</p>
     </fieldset>
 
     <fieldset>
-      <legend>2 · Panels &amp; framing</legend>
+      <legend>2 · Layout &amp; framing</legend>
       <div class="row" role="group" aria-label="Panel layout">
         <button id="layout-grid" type="button" class="layout-btn is-active">Hero + 2</button>
         <button id="layout-split" type="button" class="layout-btn">Big left</button>
         <button id="layout-strip" type="button" class="layout-btn">Three strip</button>
       </div>
-      <p class="hint" id="selected-label">Selected panel: 1 of 3 — click a panel in the preview, then drag it to move the photo.</p>
+      <p class="hint" id="picked-label">Panel 1 of 3 selected — click a panel in the preview, then drag its photo to move it.</p>
       <label>Zoom <span id="zoom-value">1.00×</span>
         <input id="zoom" type="range" min="1" max="3" step="0.01" value="1">
       </label>
@@ -58,7 +58,7 @@
     </fieldset>
 
     <fieldset>
-      <legend>4 · Look &amp; export</legend>
+      <legend>4 · Grade &amp; export</legend>
       <div class="row" role="group" aria-label="Colour grade">
         <button id="grade-sunset" type="button" class="grade-btn is-active">Sunset</button>
         <button id="grade-neon" type="button" class="grade-btn">Neon</button>
@@ -78,9 +78,9 @@
 
   <section class="preview" aria-label="Cover preview">
     <canvas id="cover" width="1080" height="1080" aria-label="The cover preview"></canvas>
-    <p class="hint">Live preview — what you see is what the PNG will look like.</p>
+    <p class="hint">Live preview — the PNG will look exactly like this.</p>
   </section>
 </main>
-<script type="module" src="./src/main.js"></script>
+<script type="module" src="./src/app.js"></script>
 </body>
 </html>

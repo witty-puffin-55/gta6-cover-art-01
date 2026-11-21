@@ -1,3 +1,4 @@
+/* Vice Cover Maker — dark violet editor chrome around the poster canvas. */
 @font-face {
   font-family: "Anton";
   src: url("./fonts/Anton-Regular.ttf") format("truetype");
@@ -6,96 +7,137 @@
   font-display: swap;
 }
 
+:root {
+  --ink: #f5eef7;
+  --ink-dim: #d8c6de;
+  --ink-faint: #b9a4c2;
+  --page: #160a1e;
+  --panel: #221029;
+  --panel-line: #4a2b57;
+  --control-line: #6b4a7a;
+  --control-fill: #3a1f47;
+  --control-hover: #4d2a5e;
+  --amber: #ffb347;
+  --pink: #ff2e88;
+  --pink-hover: #ff4d9c;
+  --ok: #8fe3b0;
+}
+
 * { box-sizing: border-box; }
 
 html, body {
   margin: 0;
   min-height: 100%;
-  background: #160a1e;
-  color: #f5eef7;
+  background: var(--page);
+  color: var(--ink);
   font: 15px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
+/* Two columns: the controls on the left, the live poster on the right. */
 .app {
   display: flex;
-  gap: 28px;
-  align-items: flex-start;
   justify-content: center;
-  padding: 24px;
+  align-items: flex-start;
+  gap: 28px;
   max-width: 1280px;
   margin: 0 auto;
+  padding: 24px;
 }
 
-.controls { width: 320px; flex: 0 0 320px; display: flex; flex-direction: column; gap: 16px; }
+.controls {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 320px;
+  width: 320px;
+  gap: 16px;
+}
 .controls h1 {
   margin: 0;
+  color: var(--amber);
   font-family: "Anton", "Arial Narrow", sans-serif;
   font-size: 34px;
   letter-spacing: 1px;
-  color: #ffb347;
-  text-shadow: 3px 3px 0 #ff2e88;
+  text-shadow: 3px 3px 0 var(--pink);
 }
-.tagline { margin: 0; color: #d8c6de; }
+.tagline { margin: 0; color: var(--ink-dim); }
 
+/* One fieldset per step of the flow. */
 fieldset {
-  border: 1px solid #4a2b57;
-  border-radius: 10px;
-  padding: 12px;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  background: #221029;
+  padding: 12px;
+  background: var(--panel);
+  border: 1px solid var(--panel-line);
+  border-radius: 10px;
 }
-legend { font-weight: 700; color: #ffb347; padding: 0 6px; }
+legend { padding: 0 6px; color: var(--amber); font-weight: 700; }
 label { display: flex; flex-direction: column; gap: 6px; font-weight: 600; }
-.hint { margin: 0; color: #b9a4c2; font-size: 13px; }
-.row { display: flex; gap: 8px; flex-wrap: wrap; }
-
-input[type="text"], select {
-  font: inherit;
-  padding: 8px 10px;
-  border: 1px solid #6b4a7a;
-  border-radius: 6px;
-  background: #160a1e;
-  color: #f5eef7;
-}
-input[type="file"] { font: inherit; color: #d8c6de; }
-input[type="range"] { width: 100%; accent-color: #ff2e88; }
+.hint { margin: 0; color: var(--ink-faint); font-size: 13px; }
+.row { display: flex; flex-wrap: wrap; gap: 8px; }
 .file-label { font-weight: 600; }
 
+/* Inputs, buttons, and the export call to action. */
+input[type="text"], select {
+  padding: 8px 10px;
+  background: var(--page);
+  color: var(--ink);
+  border: 1px solid var(--control-line);
+  border-radius: 6px;
+  font: inherit;
+}
+input[type="file"] { color: var(--ink-dim); font: inherit; }
+input[type="range"] { width: 100%; accent-color: var(--pink); }
+
 button {
+  padding: 9px 12px;
+  background: var(--control-fill);
+  color: var(--ink);
+  border: 1px solid var(--control-line);
+  border-radius: 6px;
   font: inherit;
   font-weight: 700;
-  padding: 9px 12px;
-  border: 1px solid #6b4a7a;
-  border-radius: 6px;
-  background: #3a1f47;
-  color: #f5eef7;
   cursor: pointer;
 }
-button:hover { background: #4d2a5e; }
-button.is-active { background: #ff2e88; border-color: #ff2e88; color: #fff; }
-.export-btn { background: #ff2e88; border-color: #ff2e88; color: #fff; font-size: 17px; padding: 12px; }
-.export-btn:hover { background: #ff4d9c; }
+button:hover { background: var(--control-hover); }
+button.is-active { background: var(--pink); border-color: var(--pink); color: #fff; }
 
-.preview { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 10px; align-items: center; }
+.export-btn {
+  padding: 12px;
+  background: var(--pink);
+  border-color: var(--pink);
+  color: #fff;
+  font-size: 17px;
+}
+.export-btn:hover { background: var(--pink-hover); }
+
+/* The poster preview. */
+.preview {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
 #cover {
   width: min(72vh, 100%);
   height: auto;
   max-height: 78vh;
-  box-shadow: 0 12px 44px rgba(0, 0, 0, 0.6);
-  border: 2px solid #4a2b57;
+  border: 2px solid var(--panel-line);
   border-radius: 4px;
+  box-shadow: 0 12px 44px rgba(0, 0, 0, 0.6);
   touch-action: none;
   cursor: grab;
 }
 #cover:active { cursor: grabbing; }
-#status { margin: 0; color: #8fe3b0; min-height: 1.2em; }
+#status { margin: 0; min-height: 1.2em; color: var(--ok); }
 
+/* Screenshot scenes: the cover alone, edge to edge, no editor chrome. */
 body.shot-cover { background: #000; }
 body.shot-cover .controls,
 body.shot-cover .preview .hint { display: none; }
-body.shot-cover .app { padding: 0; margin: 0; max-width: none; display: block; }
+body.shot-cover .app { display: block; max-width: none; margin: 0; padding: 0; }
 body.shot-cover .preview { display: block; }
 body.shot-cover #cover {
   width: 100vw;

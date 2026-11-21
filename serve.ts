@@ -1,7 +1,11 @@
-// A tiny static server for app/ (Node 22, standard library only), so an entry can be tried
-// locally without a build step: `node serve.ts` serves app/ on http://localhost:8080.
-// It sends the MIME types an offline web app needs, refuses any path outside app/, and otherwise
-// does nothing clever: this is a development convenience, not a web server for the internet.
+// serve.ts — a tiny static server for app/ (Node 22, standard library only),
+// so the entry can be tried locally with no build step:
+//
+//   node serve.ts            # app/ on http://localhost:8080
+//   node serve.ts --port 8901
+//
+// It sends the MIME types an offline web app needs and refuses any path
+// outside app/. A development convenience, not a server for the internet.
 import { createReadStream, statSync } from 'node:fs';
 import { createServer } from 'node:http';
 import { extname, join, normalize, resolve, sep } from 'node:path';
@@ -9,9 +13,9 @@ import { fileURLToPath } from 'node:url';
 
 const root = resolve(fileURLToPath(new URL('./app', import.meta.url)));
 const args = process.argv.slice(2);
-const portIndex = args.indexOf('--port');
-const requested = portIndex === -1 ? 8080 : Number(args[portIndex + 1]);
-const port = Number.isInteger(requested) && requested > 0 && requested < 65536 ? requested : 8080;
+const portFlag = args.indexOf('--port');
+const wanted = portFlag === -1 ? 8080 : Number(args[portFlag + 1]);
+const port = Number.isInteger(wanted) && wanted > 0 && wanted < 65536 ? wanted : 8080;
 
 const MIME: Record<string, string> = {
   '.html': 'text/html; charset=utf-8',
